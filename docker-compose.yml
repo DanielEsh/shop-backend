@@ -1,7 +1,26 @@
 version: '3.4'
 
 services:
+    backend:
+        container_name: backend
+        build:
+            context: .
+        env_file:
+            - .env
+        volumes:
+            - .:/app
+            - /app/node_modules
+        ports:
+            - 8000:8000
+            - 9229:9229
+        networks:
+            - postgres
+        command: npm run start:dev
+        depends_on:
+            - db
+        restart: always
     db:
+        container_name: db
         image: postgres:14.3
         env_file:
           - .env
@@ -10,8 +29,11 @@ services:
         restart: always
         volumes: 
             - database-data:/var/lib/postgresql/data/
+        networks:
+            - postgres 
 
     pgadmin:
+        container_name: pgadmin
         image: dpage/pgadmin4
         env_file:
           - .env
@@ -20,6 +42,12 @@ services:
         restart: always
         volumes: 
             - pgadmin:/root/.pgadmin
+        networks:
+            - postgres    
 volumes:
     database-data:
     pgadmin:
+
+networks:
+  postgres:
+    driver: bridge
