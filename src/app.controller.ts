@@ -22,4 +22,4 @@ export class AppController {
 
 // curl http://localhost:8000/api/profile
 // curl -X POST http://localhost:8000/api/auth/login -d '{"username": "john", "password": "changeme"}' -H "Content-Type: application/json"
-// curl http://localhost:8000/api/profile -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImpvaG4iLCJzdWIiOjEsImlhdCI6MTY1NjI2NDYyNywiZXhwIjoxNjU2MjY0Njg3fQ.bsnIKvCG0FTQ5LOafR67mfDWy_euFx88vvcMrRABxfc"
+// curl http://localhost:8000/api/profile -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImpvaG4iLCJzdWIiOjEsImlhdCI6MTY1NjI2NDcxMywiZXhwIjoxNjU2MjY0NzczfQ.8K3Sl0yAk8J0a5SY7E8xz_F8wUpnqsXn2gvCZjYE4_U"
