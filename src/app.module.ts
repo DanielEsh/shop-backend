@@ -5,6 +5,8 @@ import { GoodsModule } from './goods/goods.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
 import { join } from 'path';
+import { AuthModule } from './auth/auth.module';
+import { UsersModule } from './users/users.module';
 
 @Module({
   imports: [
@@ -19,9 +21,11 @@ import { join } from 'path';
       password: process.env.POSTGRES_PASSWORD,
       database: process.env.POSTGRES_NAME,
       entities: [join(__dirname, '**', '*.entity.{ts,js}')],
-      synchronize: true,
+      synchronize: false,
     }),
     GoodsModule,
+    AuthModule,
+    UsersModule,
   ],
   controllers: [AppController],
   providers: [AppService],
