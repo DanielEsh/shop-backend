@@ -12,5 +12,5 @@ export class Good {
   description: string;
 
   @Column()
-  price: string;
+  price: number;
 }

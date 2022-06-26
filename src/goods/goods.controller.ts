@@ -15,28 +15,28 @@ import { UpdateGoodDto } from './dto/update-good.dto';
 export class GoodsController {
   constructor(private readonly goodsService: GoodsService) {}
 
-  @Post()
-  create(@Body() createGoodDto: CreateGoodDto) {
-    return this.goodsService.create(createGoodDto);
-  }
-
   @Get()
   findAll() {
     return this.goodsService.findAll();
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.goodsService.findOne(+id);
+  findOne(@Param('id') id: number) {
+    return this.goodsService.findOne(id);
+  }
+
+  @Post()
+  create(@Body() createGoodDto: CreateGoodDto) {
+    return this.goodsService.create(createGoodDto);
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateGoodDto: UpdateGoodDto) {
-    return this.goodsService.update(+id, updateGoodDto);
+  update(@Param('id') id: number, @Body() updateGoodDto: UpdateGoodDto) {
+    return this.goodsService.update(id, updateGoodDto);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.goodsService.remove(+id);
+  remove(@Param('id') id: number) {
+    return this.goodsService.remove(id);
   }
 }

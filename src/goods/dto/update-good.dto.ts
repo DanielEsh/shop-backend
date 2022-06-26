@@ -1,4 +1,6 @@
-import { PartialType } from '@nestjs/mapped-types';
-import { CreateGoodDto } from './create-good.dto';
-
-export class UpdateGoodDto extends PartialType(CreateGoodDto) {}
+export class UpdateGoodDto {
+  id: number;
+  name: string;
+  description: string;
+  price: number;
+}

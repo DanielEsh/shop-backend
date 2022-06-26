@@ -1,26 +1,46 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 import { CreateGoodDto } from './dto/create-good.dto';
 import { UpdateGoodDto } from './dto/update-good.dto';
+import { Good } from './entities/good.entity';
 
 @Injectable()
 export class GoodsService {
-  create(createGoodDto: CreateGoodDto) {
-    return 'This action adds a new good';
+  constructor(
+    @InjectRepository(Good)
+    private goodsRepository: Repository<Good>,
+  ) {}
+
+  findAll(): Promise<Good[]> {
+    return this.goodsRepository.find();
   }
 
-  findAll() {
-    return `This action returns all goods`;
+  async findOne(id: number): Promise<Good> {
+    return this.goodsRepository.findOneBy({ id });
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} good`;
+  async create(good: CreateGoodDto) {
+    const newGood = await this.goodsRepository.create(good);
+    await this.goodsRepository.save(newGood);
+    return newGood;
   }
 
-  update(id: number, updateGoodDto: UpdateGoodDto) {
-    return `This action updates a #${id} good`;
+  async update(id: number, good: UpdateGoodDto) {
+    await this.goodsRepository.update(id, good);
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    const updatedPost = await this.goodsRepository.findOne(id);
+    if (updatedPost) {
+      return updatedPost;
+    }
+    throw new HttpException('Good not found', HttpStatus.NOT_FOUND);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} good`;
+  async remove(id: number) {
+    const deleteResponse = await this.goodsRepository.delete(id);
+    if (!deleteResponse.affected) {
+      throw new HttpException('Good not found', HttpStatus.NOT_FOUND);
+    }
   }
 }
