@@ -1,8 +1,8 @@
 import { Controller, Req, UseGuards, Put, Body, Inject } from '@nestjs/common';
 import { Request } from 'express';
-import { JwtAuthGuard } from './auth/auth.guard';
+import { JwtAuthGuard } from '../auth/auth.guard';
 import { UpdateNameDto } from './user.dto';
-import { User } from './user.entity';
+import { User } from '@/api/user/user.entity';
 import { UserService } from './user.service';
 
 @Controller('user')
